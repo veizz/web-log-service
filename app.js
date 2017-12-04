@@ -75,7 +75,7 @@ app.use(router.routes())
 wsRouter.get('/ws', function(ctx, next){
   const id = ctx.request.query.id
   const uuid = uuidv4()
-  const msg = id ? 'welcome!' : '请设置id参数。如localhost:3000/ws?id=abc123'
+  const msg = id ? 'welcome!' : '请设置id参数。如localhost:3000/show?id=abc123'
 
   ctx.websocket.send(msg);
   if (id) {
