@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Webtail</title>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <style>
+      pre.line {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="fileData"></div>
+    <script type="text/javascript">
+    function getId(){
+      var queryString = location.search.replace('?', '')
+      if(!queryString){
+        return ''
+      }
+      var arr = queryString.split('&')
+      for(var i = 0 ; i < arr.length; i++){
+        if(arr[i].indexOf('id=') === 0){
+          return decodeURIComponent(arr[i].replace('id=', ''))
+        }
+      }
+      return ''
+    }
+      (function() {
+        var data = $("#fileData");
+        function onclose(evt) {
+          console.log('close ed')
+          data.text('Connection closed');
+          // retry
+          // conn = new WebSocket("ws://localhost:3000/ws?id=" + getId());
+          data.empty();
+          conn.onclose = onclose;
+          conn.onmessage = onmessage;
+        };
+        function onmessage(evt) {
+          console.log('file updated');
+          if (evt.data == "\n") {
+            data.append("<pre class='blank'>"+evt.data+"</pre>");
+          } else {
+            data.append("<pre class='line'>"+evt.data+"</pre>");
+          }
+        };
+        var conn = new WebSocket("ws://localhost:3000/ws?id=" + getId());
+        conn.onclose = onclose
+        conn.onmessage = onmessage
+        $("#fileName").change(function () {
+          conn.close()
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "widget-log-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "DEBUG=* nodemon app.js",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "veizzsmile@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "koa": "^2.0.0",
+    "koa-router": "^7.3.0",
+    "koa-websocket": "^4.1.0",
+    "nodemon": "^1.12.1",
+    "uuid": "^3.1.0"
+  }
+}
